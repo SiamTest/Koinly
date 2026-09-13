@@ -1,3 +1,9 @@
+## [1.0.1132] - 2026-09-13
+
+- Temporarily allowed `SiamTest/Koinly` to run the Android, Windows, Linux, and macOS release build jobs automatically when the release workflow is triggered by pushes to `main` or `master`.
+- Kept all other non-canonical repositories blocked from application package builds while preserving their self-hosted Worker deployment behavior.
+- Synchronized application version metadata to `1.0.1132+176`.
+
 ## [1.0.1131] - 2026-09-13
 
 - Fixed Self-Hosted Sync Worker TypeScript compilation with TypeScript 5.9 by keeping Analytics PDF byte arrays explicitly backed by `ArrayBuffer` before passing them to `Blob`.
