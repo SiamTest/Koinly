@@ -45,21 +45,25 @@ void main() {
   });
 
 
-  test('release package jobs run only in canonical and temporary CI repositories', () {
+  test('release package jobs never build in fork repositories', () {
     final workflow =
         File('.github/workflows/build-android-apks.yml').readAsStringSync();
 
-    const allowedGuard =
-        "if: github.repository == 'Chowdhury-Siam/Koinly' || github.repository == 'SiamTest/Koinly'";
-    expect(workflow, isNot(contains("github.repository != 'Chowdhury-Siam/Koinly'")));
+    expect(
+      workflow,
+      isNot(
+        contains(
+          "github.event_name == 'workflow_dispatch' || github.repository == 'Chowdhury-Siam/Koinly'",
+        ),
+      ),
+    );
     expect(
       RegExp(
-        r"^    if: github\.repository == 'Chowdhury-Siam/Koinly' \|\| github\.repository == 'SiamTest/Koinly'\s*$",
+        r"^    if: github\.repository == 'Chowdhury-Siam/Koinly'\s*$",
         multiLine: true,
       ).allMatches(workflow).length,
       4,
     );
-    expect(workflow, contains(allowedGuard));
   });
 
   test('desktop platform metadata stays versioned and documented', () {
@@ -68,10 +72,10 @@ void main() {
     final androidGradle = File('android/app/build.gradle').readAsStringSync();
     final readme = File('README.md').readAsStringSync();
 
-    expect(pubspec, contains('version: 1.0.1132+176'));
-    expect(config, contains("defaultValue: '1.0.1132'"));
-    expect(androidGradle, contains('versionCode = 176'));
-    expect(androidGradle, contains('versionName = "1.0.1132"'));
+    expect(pubspec, contains('version: 1.0.1129+173'));
+    expect(config, contains("defaultValue: '1.0.1128'"));
+    expect(androidGradle, contains('versionCode = 173'));
+    expect(androidGradle, contains('versionName = "1.0.1129"'));
     expect(readme, contains('Android, Windows, Linux, and macOS'));
     expect(readme, contains('universal macOS package'));
     expect(File('tools/linux/koinly.desktop').existsSync(), isTrue);

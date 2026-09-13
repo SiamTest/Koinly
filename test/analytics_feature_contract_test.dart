@@ -27,7 +27,7 @@ void main() {
     expect(analytics, contains('uploadAnalyticsPdfToGoogleDrive'));
 
     expect(pubspec, contains('pdf: ^3.13.0'));
-    expect(pubspec, contains('version: 1.0.1132+176'));
+    expect(pubspec, contains('version: 1.0.1129+173'));
   });
 
   test('static category badges keep no obsolete orbit fallback state', () {
